@@ -6,6 +6,10 @@
 @import '~assets/wmnds/vars';
 @import '~assets/wmnds/mixins';
 
+.dropDown {
+  width: 50%;
+}
+
 .icon {
   height: 50px;
   // get-color() function taken from mixins (refer to: https://designsystem.wmnetwork.co.uk/styles/colour-palettes/ for usage)
@@ -15,4 +19,15 @@
   @media all and (min-width: $breakpoint-md) {
     fill: get-color(primary);
   }
+}
+
+.textArea {
+  width: 70%;
+  height: 10rem;
+  resize: none;
+  border: 2px solid get-color(secondary);
+}
+
+.floatRight {
+  float: right;
 }

@@ -1,0 +1,210 @@
+{
+  "pages": [
+    {
+      "sectionNum": 1,
+      "sectionDescription": "About your complaint",
+      "title": "What is your complaint about?",
+      "type": "complaint",
+      "components": [
+        {
+          "type": "Dropdown",
+          "title": "Select a reason for your complaint",
+          "options": [
+            "Antisocial behavuior",
+            "Service delay or cancellation",
+            "Cleanliness",
+            "Bus did not operate",
+            "Bus driver conduct",
+            "Bus driving standards",
+            "Bus failed to stop",
+            "Bus stop location",
+            "Overcrowding",
+            "Staff conduct",
+            "Tickets and passes"
+          ],
+          "id": "1",
+          "name": "complaint-dropdown"
+        }
+      ],
+      "dynamicComponents": [
+        {
+          "type": "Other",
+          "components": [
+            {
+              "type": "Textarea",
+              "title": "What Happend?",
+              "text1": "Please describe the incident in detail.",
+              "text2": "You'll get the chance to enter the location and date after.",
+              "id": "1",
+              "name": "what-happend"
+            }
+          ]
+        },
+        {
+          "type": "Antisocial behavuior",
+          "components": [
+            {
+              "type": "InsetText",
+              "texts": [
+                "To report antisocial behavuior online, you'll need to visit the Safer Travel Partners"
+              ],
+              "id": "1"
+            }
+          ]
+        },
+        {
+          "type": "Tickets and passes",
+          "components": [
+            {
+              "type": "InsetText",
+              "texts": [
+                "If you want a refund for the ticket, see how to apply for a ticket refund",
+                "Find out how you can set up, cancel or update a Direct Debit",
+                "If your Swift card is blocked, you'll need to contact customer services on 8045 303 6760"
+              ],
+              "id": "1"
+            },
+            {
+              "type": "Textarea",
+              "title": "What Happend?",
+              "text1": "Please describe the incident in detail.",
+              "text2": "You'll get the chance to enter the location and date after.",
+              "id": "2",
+              "name": "what-happend"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionNum": 1,
+      "sectionDescription": "About your complaint",
+      "title": "Where did this take place?",
+      "type": "location",
+      "components": [
+        {
+          "type": "Text",
+          "text": "Enter the name or postcode of where this happened.",
+          "id": "1"
+        },
+        {
+          "type": "Text",
+          "text": "If it happened at bust stop, please enter the bus stop name.",
+          "id": "2"
+        },
+        {
+          "type": "InsetText",
+          "texts": ["If your complaint does not involve a location, you can skip this question."],
+          "id": "3"
+        },
+        {
+          "type": "Input",
+          "label": "Location of incident",
+          "id": "4",
+          "name": "location"
+        }
+      ]
+    },
+    {
+      "sectionNum": 1,
+      "sectionDescription": "About your complaint",
+      "title": "What is your Swift card number?",
+      "type": "swift",
+      "components": [
+        {
+          "type": "Text",
+          "text": "If you're making a complaint about a Swift card or photocard, we'll need the Swift card number",
+          "id": "1"
+        },
+
+        {
+          "type": "InsetText",
+          "texts": [
+            "If your complaint does not involve a Swift card or photocard, you can skip this question."
+          ],
+          "id": "2"
+        },
+        {
+          "type": "Input",
+          "label": "This is the 16-digit number on the front of the card",
+          "id": "3",
+          "name": "swift"
+        }
+      ]
+    },
+    {
+      "sectionNum": 1,
+      "sectionDescription": "About your complaint",
+      "title": "When did this take place?",
+      "type": "date",
+      "components": [
+        {
+          "type": "Text",
+          "text": "Enter the date of when this happened.",
+          "id": "1"
+        },
+
+        {
+          "type": "InsetText",
+          "texts": ["If your complaint does not involve a date, you can skip this question."],
+          "id": "2"
+        },
+        {
+          "type": "Calendar",
+          "label": "Choose a date",
+          "id": "3"
+        }
+      ]
+    },
+    {
+      "sectionNum": 2,
+      "sectionDescription": "About you",
+      "title": "What is your name?",
+      "type": "name",
+      "components": [
+        {
+          "type": "Input",
+          "label": "First Name",
+          "id": "1",
+          "name": "first-name"
+        },
+        {
+          "type": "Input",
+          "label": "Last Name",
+          "id": "2",
+          "name": "last-name"
+        }
+      ]
+    },
+    {
+      "sectionNum": 2,
+      "sectionDescription": "About you",
+      "title": "How would you like to be contacted?",
+      "type": "contact",
+      "components": [
+        {
+          "type": "Checkbox",
+          "options": [
+            {
+              "name": "email",
+              "option": "Email",
+
+              "inputLabel1": "Email address",
+              "inputLabel2": "For example, name@example.com",
+              "type": "email"
+            },
+            {
+              "name": "phone",
+              "option": "Phone",
+
+              "inputLabel1": "Phone number",
+              "inputLabel2": "For example, 07700900457",
+              "type": "text"
+            }
+          ],
+          "id": "1"
+        }
+      ]
+    }
+  ]
+}
