@@ -71,7 +71,7 @@ const Checkbox = ({ label = '', options = [], defaultValues = [], required = fal
 // PropTypes
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  options: PropTypes.arrayOf(PropTypes).isRequired,
   required: PropTypes.bool.isRequired,
 
   defaultValues: PropTypes.arrayOf(PropTypes.string).isRequired,
