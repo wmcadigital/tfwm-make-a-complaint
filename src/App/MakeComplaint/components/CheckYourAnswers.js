@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { FormDataContext } from '../../globalState';
 
@@ -6,7 +6,7 @@ import classes from '../../App.module.scss';
 
 const CheckYourAnswers = () => {
   const [{ formData, stepNum }, formDispatch] = useContext(FormDataContext);
-
+  const [errorMsg, setErrorMsg] = useState('');
   const prevStep = () => {
     formDispatch({
       type: 'CHANGE-PAGE',
@@ -19,6 +19,19 @@ const CheckYourAnswers = () => {
       payload: { page: 'COMPLAINT', stepNum: stepNumber },
     });
   };
+  const checkCheckboxes = () => {
+    const findCheckedBoxes = [...document.querySelectorAll(`input:checked`)];
+    if (findCheckedBoxes.length < 2) {
+      setErrorMsg('Please select both options');
+    } else {
+      formDispatch({
+        type: 'CHANGE-PAGE',
+        payload: { page: 'SUCCESS', stepNum },
+      });
+      setErrorMsg('');
+    }
+  };
+
   return (
     <>
       <div className="wmnds-col-1 wmnds-m-b-md">
@@ -100,23 +113,25 @@ const CheckYourAnswers = () => {
                 </td>{' '}
               </tr>
             )}
-            <tr>
-              <th scope="row" data-header="Header 1">
-                When
-              </th>
-              <td data-header="Header 2">
-                {formData.day}-{formData.month}-{formData.year}
-              </td>
-              <td data-header="Header 2">
-                <button
-                  type="button"
-                  className={`wmnds-btn wmnds-btn--link ${classes.floatRight}`}
-                  onClick={() => changeForm(2)}
-                >
-                  Change
-                </button>
-              </td>{' '}
-            </tr>
+            {formData.day && formData.month && formData.year && (
+              <tr>
+                <th scope="row" data-header="Header 1">
+                  When
+                </th>
+                <td data-header="Header 2">
+                  {formData.day}-{formData.month}-{formData.year}
+                </td>
+                <td data-header="Header 2">
+                  <button
+                    type="button"
+                    className={`wmnds-btn wmnds-btn--link ${classes.floatRight}`}
+                    onClick={() => changeForm(2)}
+                  >
+                    Change
+                  </button>
+                </td>{' '}
+              </tr>
+            )}
           </tbody>
         </table>
         <h3>About you</h3>
@@ -180,10 +195,15 @@ const CheckYourAnswers = () => {
           By submitting this complaint you are confirming that, to the best of your knowledge, the
           details you are providing are correct.
         </p>
+
         <div className="wmnds-fe-group">
-          <div className="wmnds-fe-checkboxes">
+          <div className={`wmnds-fe-checkboxes ${errorMsg && 'wmnds-fe-group--error'}`}>
+            {errorMsg && <span className="wmnds-fe-error-message">{errorMsg}</span>}
             <label className="wmnds-fe-checkboxes__container">
-              Agree to the terms and conditions
+              Agree to the{' '}
+              <a href="https://www.tfwm.org.uk/terms-and-conditions/transport-for-west-midlands-website/">
+                terms and conditions
+              </a>
               <input
                 id="checkboxes_option1"
                 className="wmnds-fe-checkboxes__input"
@@ -198,7 +218,10 @@ const CheckYourAnswers = () => {
               </span>
             </label>
             <label className="wmnds-fe-checkboxes__container">
-              Agree to the privacy policy
+              Agree to the{' '}
+              <a href="https://www.tfwm.org.uk/policies/privacy-and-cookies-policy/">
+                privacy policy
+              </a>
               <input
                 id="checkboxes_option1"
                 className="wmnds-fe-checkboxes__input"
@@ -214,7 +237,7 @@ const CheckYourAnswers = () => {
             </label>
           </div>
         </div>
-        <button className="wmnds-btn wmnds-btn--start" type="button">
+        <button className="wmnds-btn wmnds-btn--start" type="button" onClick={checkCheckboxes}>
           Accept and send
           <svg className="wmnds-btn__icon wmnds-btn__icon--right ">
             <use xlinkHref="#wmnds-general-chevron-right" href="#wmnds-general-chevron-right" />

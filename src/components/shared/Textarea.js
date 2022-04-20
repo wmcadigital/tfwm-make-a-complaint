@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import classes from '../App/App.module.scss';
+import classes from '../../App/App.module.scss';
 
-const Textarea = ({ title = '', text1 = '', text2 = '', name = '', defaultValue = undefined }) => {
+const Textarea = ({
+  title = '',
+  errorMsg = '',
+  text1 = '',
+  text2 = '',
+  name = '',
+  defaultValue = undefined,
+  required = false,
+}) => {
   const [hasError, setHasError] = useState(defaultValue === '');
 
   const textChageHandler = (event) => {
@@ -20,6 +28,7 @@ const Textarea = ({ title = '', text1 = '', text2 = '', name = '', defaultValue 
       setHasError(false);
     }
   }, [defaultValue]);
+
   return (
     <div className="wmnds-m-t-lg">
       <h3>{title}</h3>
@@ -30,11 +39,11 @@ const Textarea = ({ title = '', text1 = '', text2 = '', name = '', defaultValue 
         <label className="wmnds-fe-label wmnds-m-t-20" htmlFor="example-textarea">
           {text2}
         </label>
-        {hasError && <span className="wmnds-fe-error-message">This field can&apos;t be empty</span>}
+        {hasError && <span className="wmnds-fe-error-message">{errorMsg}</span>}
         <textarea
           defaultValue={defaultValue}
           className={`wmnds-fe-textarea ${classes.textArea}`}
-          id="example-textarea"
+          id={required ? 'required' : ''}
           name={name}
           rows="2"
           maxLength="200"
@@ -49,6 +58,8 @@ const Textarea = ({ title = '', text1 = '', text2 = '', name = '', defaultValue 
 // PropTypes
 Textarea.propTypes = {
   title: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
+  errorMsg: PropTypes.string.isRequired,
   text1: PropTypes.string.isRequired,
   text2: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

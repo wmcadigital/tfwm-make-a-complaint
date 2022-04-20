@@ -5,10 +5,13 @@
       "sectionDescription": "About your complaint",
       "title": "What is your complaint about?",
       "type": "complaint",
+
       "components": [
         {
           "type": "Dropdown",
           "title": "Select a reason for your complaint",
+          "errorMsg": "Reason is required",
+          "required": true,
           "options": [
             "Antisocial behavuior",
             "Service delay or cancellation",
@@ -33,6 +36,9 @@
             {
               "type": "Textarea",
               "title": "What Happend?",
+              "errorMsg": "Incident details are required",
+              "required": true,
+
               "text1": "Please describe the incident in detail.",
               "text2": "You'll get the chance to enter the location and date after.",
               "id": "1",
@@ -46,9 +52,15 @@
             {
               "type": "InsetText",
               "texts": [
-                "To report antisocial behavuior online, you'll need to visit the Safer Travel Partners"
+                "To report anti-social behaviour online, you’ll need to visit the Safer Travel Partnership website."
               ],
               "id": "1"
+            },
+            {
+              "type": "Button",
+              "link": "https://safertravel.info/advice-support/report-an-incident/",
+              "title": "Start now",
+              "id": "2"
             }
           ]
         },
@@ -58,8 +70,8 @@
             {
               "type": "InsetText",
               "texts": [
-                "If you want a refund for the ticket, see how to apply for a ticket refund",
-                "Find out how you can set up, cancel or update a Direct Debit",
+                "If you want a refund for a ticket, see <a href='https://www.tfwm.org.uk/swift-and-tickets/manage-a-ticket/get-a-refund-or-compensation/#'>how to apply for a ticket refund</a>.",
+                "Find out how you can <a href='https://www.tfwm.org.uk/swift-and-tickets/manage-a-ticket/set-up-cancel-or-update-a-direct-debit/'>set up, cancel or update a Direct Debit</a>.",
                 "If your Swift card is blocked, you'll need to contact customer services on 8045 303 6760"
               ],
               "id": "1"
@@ -67,10 +79,12 @@
             {
               "type": "Textarea",
               "title": "What Happend?",
+              "errorMsg": "Incident details are required",
               "text1": "Please describe the incident in detail.",
               "text2": "You'll get the chance to enter the location and date after.",
               "id": "2",
-              "name": "what-happend"
+              "name": "what-happend",
+              "required": true
             }
           ]
         }
@@ -165,14 +179,20 @@
         {
           "type": "Input",
           "label": "First Name",
+          "required": true,
+
           "id": "1",
-          "name": "first-name"
+          "name": "first-name",
+          "errorMsg": "First name is required"
         },
         {
           "type": "Input",
           "label": "Last Name",
+          "required": true,
+
           "id": "2",
-          "name": "last-name"
+          "name": "last-name",
+          "errorMsg": "Last name is required"
         }
       ]
     },
@@ -184,22 +204,26 @@
       "components": [
         {
           "type": "Checkbox",
+          "required": true,
+
           "options": [
             {
               "name": "email",
               "option": "Email",
-
+              "required": true,
               "inputLabel1": "Email address",
               "inputLabel2": "For example, name@example.com",
-              "type": "email"
+              "type": "email",
+              "errorMsg": "Enter a valid email address"
             },
             {
               "name": "phone",
               "option": "Phone",
-
+              "required": true,
               "inputLabel1": "Phone number",
               "inputLabel2": "For example, 07700900457",
-              "type": "text"
+              "type": "number",
+              "errorMsg": "Enter a valid phone number"
             }
           ],
           "id": "1"

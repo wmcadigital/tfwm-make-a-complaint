@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 
 const Dropdown = ({
   title = '',
+  errorMsg = '',
   options = [],
   onChange = () => {},
   name = '',
   defaultValue = undefined,
+  required = false,
 }) => {
   const [hasError, setHasError] = useState(defaultValue === '');
 
@@ -28,14 +30,15 @@ const Dropdown = ({
   return (
     <div className={`wmnds-fe-group wmnds-m-b-lg  ${hasError && 'wmnds-fe-group--error'}`}>
       <div className="wmnds-fe-dropdown">
-        {hasError && <span className="wmnds-fe-error-message">Please select an option</span>}
         <label className="wmnds-fe-label" htmlFor="dropdown-example">
           {title}
         </label>
+        {hasError && <span className="wmnds-fe-error-message">{errorMsg}</span>}
+
         <select
           className="wmnds-fe-dropdown__select"
           style={{ width: '50%' }}
-          id="dropdown-example"
+          id={required ? 'required' : ''}
           name={name}
           onChangeCapture={(e) => {
             onChange(e);
@@ -58,8 +61,10 @@ const Dropdown = ({
 // PropTypes
 Dropdown.propTypes = {
   title: PropTypes.string.isRequired,
+  errorMsg: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   defaultValue: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
 
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,

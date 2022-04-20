@@ -7,18 +7,35 @@ const Calendar = ({
   dayDefaultValue = undefined,
   monthDefaultValue = undefined,
   yearDefaultValue = undefined,
+  required = false,
 }) => {
+  const [isRequired, setIsRequired] = useState(required);
   const [hasError, setHasError] = useState(
     dayDefaultValue === '' || monthDefaultValue === '' || yearDefaultValue === ''
   );
+  const dateChangeHandler = () => {
+    const findDateInputs = [...document.querySelectorAll(`input`)].map(
+      (checkbox) => checkbox.value
+    );
 
-  const dateChageHandler = (event) => {
-    if (event.target.value === '') {
+    const dateIsEmpty = findDateInputs.every((value) => value === '');
+
+    if (dateIsEmpty) {
+      setIsRequired(false);
+      setHasError(false);
+      return;
+    }
+    if (!dateIsEmpty) {
+      setIsRequired(true);
+    }
+
+    if (findDateInputs.includes('')) {
       setHasError(true);
     } else {
       setHasError(false);
     }
   };
+
   useEffect(() => {
     if (dayDefaultValue === '' || monthDefaultValue === '' || yearDefaultValue === '') {
       setHasError(true);
@@ -26,6 +43,7 @@ const Calendar = ({
       setHasError(false);
     }
   }, [dayDefaultValue, monthDefaultValue, yearDefaultValue]);
+
   return (
     <div className="wmnds-fe-group">
       {label && (
@@ -33,22 +51,28 @@ const Calendar = ({
           {label}
         </label>
       )}
-      <div id="date-input" className={`wmnds-fe-group ${hasError && 'wmnds-fe-group--error'}`}>
+      <div
+        id="date-input"
+        className={`wmnds-fe-group ${hasError && isRequired && 'wmnds-fe-group--error'}`}
+      >
         <div className="wmnds-fe-date-input">
-          {hasError && <span className="wmnds-fe-error-message">Enter a valid date</span>}
+          {hasError && isRequired && (
+            <span className="wmnds-fe-error-message">Enter a valid date</span>
+          )}
           <div className="wmnds-fe-date-input__day">
             <label className="wmnds-fe-label" htmlFor="LastUsedDateDay">
               Day
             </label>
             <input
-              className={`wmnds-fe-input ${hasError && 'wmnds-fe-input--error'}`}
-              id="date-input_LastUsedDateDay"
+              className={`wmnds-fe-input ${hasError && isRequired && 'wmnds-fe-input--error'}`}
+              id={isRequired ? 'required' : ''}
               inputMode="numeric"
               name="day"
               type="text"
               maxLength="2"
+              minLength="1"
               pattern="[0-9]*"
-              onChange={dateChageHandler}
+              onChange={dateChangeHandler}
               defaultValue={dayDefaultValue}
             />
           </div>
@@ -57,14 +81,15 @@ const Calendar = ({
               Month
             </label>
             <input
-              className={`wmnds-fe-input ${hasError && 'wmnds-fe-input--error'}`}
-              id="date-input_LastUsedDateMonth"
+              className={`wmnds-fe-input ${hasError && isRequired && 'wmnds-fe-input--error'}`}
+              id={isRequired ? 'required' : ''}
               inputMode="numeric"
               name="month"
               type="text"
               maxLength="2"
+              minLength="1"
               pattern="[0-9]*"
-              onChange={dateChageHandler}
+              onChange={dateChangeHandler}
               defaultValue={monthDefaultValue}
             />
           </div>
@@ -73,14 +98,15 @@ const Calendar = ({
               Year
             </label>
             <input
-              className={`wmnds-fe-input ${hasError && 'wmnds-fe-input--error'}`}
-              id="date-input_LastUsedDateYear"
+              className={`wmnds-fe-input ${hasError && isRequired && 'wmnds-fe-input--error'}`}
+              id={isRequired ? 'required' : ''}
               inputMode="numeric"
               name="year"
               type="text"
               maxLength="4"
+              minLength="4"
               pattern="[0-9]*"
-              onChange={dateChageHandler}
+              onChange={dateChangeHandler}
               defaultValue={yearDefaultValue}
             />
           </div>
@@ -93,6 +119,7 @@ const Calendar = ({
 // PropTypes
 Calendar.propTypes = {
   label: PropTypes.string.isRequired,
+  required: PropTypes.string.isRequired,
   dayDefaultValue: PropTypes.string.isRequired,
   monthDefaultValue: PropTypes.string.isRequired,
   yearDefaultValue: PropTypes.string.isRequired,

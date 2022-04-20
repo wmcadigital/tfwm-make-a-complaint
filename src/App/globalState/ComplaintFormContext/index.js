@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
-import { defaultRoute } from 'components/App/routes';
+import { defaultRoute } from 'App/routes';
 import React, { createContext, useReducer } from 'react';
 import Data from '../../MakeComplaint/data.json';
 // create context

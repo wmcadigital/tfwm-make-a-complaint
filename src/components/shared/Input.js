@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
-const Input = ({ label = '', name = '', defaultValue = undefined }) => {
+const Input = ({
+  label = '',
+  name = '',
+  defaultValue = undefined,
+  errorMsg = '',
+  required = false,
+}) => {
   const [hasError, setHasError] = useState(defaultValue === '');
 
   const inputChageHandler = (event) => {
@@ -20,16 +26,16 @@ const Input = ({ label = '', name = '', defaultValue = undefined }) => {
     }
   }, [defaultValue]);
   return (
-    <div className={`wmnds-fe-group ${hasError && 'wmnds-fe-group--error'}`}>
+    <div className={`wmnds-fe-group ${hasError && required && 'wmnds-fe-group--error'}`}>
       {label && (
         <label className="wmnds-fe-label" htmlFor="input">
           {label}
         </label>
       )}
-      {hasError && <span className="wmnds-fe-error-message">This field can&apos;t be empty</span>}
+      {hasError && required && <span className="wmnds-fe-error-message">{errorMsg}</span>}
       <input
-        className={`wmnds-fe-input ${hasError && 'wmnds-fe-input--error'}`}
-        id="input"
+        className={`wmnds-fe-input ${hasError && required && 'wmnds-fe-input--error'}`}
+        id={required ? 'required' : ''}
         name={name}
         type="text"
         style={{ width: '20rem' }}
@@ -43,6 +49,8 @@ const Input = ({ label = '', name = '', defaultValue = undefined }) => {
 // PropTypes
 Input.propTypes = {
   label: PropTypes.string.isRequired,
+  required: PropTypes.bool.isRequired,
+  errorMsg: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   defaultValue: PropTypes.string.isRequired,
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
-const Checkbox = ({ label = '', options = [], defaultValues = [] }) => {
+const Checkbox = ({ label = '', options = [], defaultValues = [], required = false }) => {
   const [checkedBoxes, setCheckedBoxes] = useState([]);
   const checkBoxesChangeHandler = () => {
     const findCheckedBoxes = [...document.querySelectorAll(`input:checked`)].map(
@@ -29,6 +29,7 @@ const Checkbox = ({ label = '', options = [], defaultValues = [] }) => {
                 value={option.name}
                 type="checkbox"
                 defaultChecked={defaultValues[idx] && true}
+                id={required ? 'required' : ''}
               />
               <span className="wmnds-fe-checkboxes__checkmark">
                 <svg className="wmnds-fe-checkboxes__icon">
@@ -48,12 +49,12 @@ const Checkbox = ({ label = '', options = [], defaultValues = [] }) => {
                   {option.inputLabel2}
                 </label>{' '}
                 {defaultValues[idx] === '' && (
-                  <span className="wmnds-fe-error-message">This field can&apos;t be empty</span>
+                  <span className="wmnds-fe-error-message">{option.errorMsg}</span>
                 )}
                 <input
                   name={option.name}
                   className="wmnds-fe-input"
-                  id="input"
+                  id={required ? 'required' : ''}
                   type={option.type}
                   style={{ width: '20rem' }}
                   defaultValue={defaultValues[idx] ? defaultValues[idx] : ''}
@@ -71,6 +72,8 @@ const Checkbox = ({ label = '', options = [], defaultValues = [] }) => {
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  required: PropTypes.bool.isRequired,
+
   defaultValues: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

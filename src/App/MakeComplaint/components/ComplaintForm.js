@@ -12,7 +12,9 @@ import Checkbox from 'components/shared/Checkbox';
 
 import Input from 'components/shared/Input';
 
-import { defaultRoute, ticketsAndPassesRoute } from 'components/App/routes';
+import Button from 'components/shared/Button';
+
+import { defaultRoute, ticketsAndPassesRoute } from 'App/routes';
 
 import { FormDataContext } from '../../globalState';
 
@@ -41,25 +43,25 @@ const ComplaintForm = () => {
       setDynamicComponents(findDynamicComponent || data.dynamicComponents[0]);
     }
   }, [stepNum]);
-  console.log(formData);
+
   const nextStep = (event) => {
     event.preventDefault();
 
     const answers = [];
     event.target.forEach((target) => {
       if (target.name) {
-        answers.push({ name: target.name, value: target.value });
+        answers.push({ name: target.name, value: target.value, required: target.id });
         formDispatch({
           type: 'ADD-DATA',
           payload: { name: target.name, value: target.value },
         });
       }
     });
-
+    console.log(answers);
     const hasEmptyField = answers.some((target) => !target.value);
-
+    const isRequired = answers.some((target) => target.required === 'required');
     // exit func if there is a field with an empty value or if there are no answers
-    if (hasEmptyField || answers.length === 0) return;
+    if ((hasEmptyField && isRequired) || answers.length === 0) return;
 
     // when last complaint form is reached
     if (stepNum === route.length - 1) {
@@ -114,6 +116,8 @@ const ComplaintForm = () => {
               {component.type === 'Dropdown' && (
                 <Dropdown
                   title={component.title}
+                  errorMsg={component.errorMsg}
+                  required={component.required}
                   options={component.options}
                   onChange={dropdownChangeHandler}
                   name={component.name}
@@ -125,8 +129,10 @@ const ComplaintForm = () => {
                 <Textarea
                   title={component.title}
                   text1={component.text1}
+                  required={component.required}
                   text2={component.text2}
                   name={component.name}
+                  errorMsg={component.errorMsg}
                   defaultValue={formData[component.name]}
                 />
               )}
@@ -137,6 +143,8 @@ const ComplaintForm = () => {
                   label={component.label}
                   name={component.name}
                   defaultValue={formData[component.name]}
+                  errorMsg={component.errorMsg}
+                  required={component.required}
                 />
               )}
               {component.type === 'Calendar' && (
@@ -153,6 +161,7 @@ const ComplaintForm = () => {
                   options={component.options}
                   name={component.name}
                   defaultValues={[formData.email, formData.phone]}
+                  required={component.required}
                 />
               )}
             </div>
@@ -167,15 +176,27 @@ const ComplaintForm = () => {
                     text1={component.text1}
                     text2={component.text2}
                     name={component.name}
+                    errorMsg={component.errorMsg}
                     defaultValue={formData[component.name]}
+                    required={component.required}
                   />
                 )}
-                {component.type === 'InsetText' && <InsetText texts={component.texts} />}
+                {component.type === 'InsetText' && (
+                  <InsetText texts={component.texts} id={component.id} />
+                )}
+                {component.type === 'Button' && (
+                  <Button title={component.title} id={component.id} link={component.link} />
+                )}
               </div>
             ))}
-          <button className="wmnds-btn wmnds-m-b-lg" type="submit">
-            Continue
-          </button>
+          {dynamicComponents.type &&
+          dynamicComponents.components.some((component) => component.type === 'Button') ? (
+            ''
+          ) : (
+            <button className="wmnds-btn wmnds-m-b-lg" type="submit">
+              Continue
+            </button>
+          )}
         </form>
       </div>
     </>
