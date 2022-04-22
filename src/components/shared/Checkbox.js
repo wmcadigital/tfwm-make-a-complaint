@@ -3,21 +3,40 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const Checkbox = ({ label = '', options = [], defaultValues = [], required = false }) => {
+  const [hasError, setHasError] = useState(defaultValues.every((value) => value === undefined));
+
   const [checkedBoxes, setCheckedBoxes] = useState([]);
   const checkBoxesChangeHandler = () => {
     const findCheckedBoxes = [...document.querySelectorAll(`input:checked`)].map(
       (checkbox) => checkbox.value
     );
 
+    if (findCheckedBoxes.length > 0) {
+      setHasError(false);
+    } else {
+      setHasError(true);
+    }
     setCheckedBoxes(findCheckedBoxes);
   };
   useEffect(() => {
     checkBoxesChangeHandler();
   }, []);
 
+  useEffect(() => {
+    if (defaultValues.every((value) => value === undefined)) {
+      setHasError(true);
+    } else {
+      setHasError(false);
+    }
+  }, [defaultValues]);
+
   return (
-    <div className="wmnds-fe-group ">
+    <div className={`wmnds-fe-group ${hasError && 'wmnds-fe-group--error'}`}>
       <div className="wmnds-fe-checkboxes">
+        {hasError && (
+          <span className="wmnds-fe-error-message">Please select at least one option</span>
+        )}
+
         <span className="wmnds-fe-checkboxes__desc">{label}</span>
         {options.map((option, idx) => (
           <div key={option.name} className="wmnds-m-b-md">
@@ -71,7 +90,7 @@ const Checkbox = ({ label = '', options = [], defaultValues = [], required = fal
 // PropTypes
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes).isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
   required: PropTypes.bool.isRequired,
 
   defaultValues: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -19,6 +19,29 @@ const CheckYourAnswers = () => {
       payload: { page: 'COMPLAINT', stepNum: stepNumber },
     });
   };
+  // const email = 'devtest13213@gmail.com';
+  // const sendEmailHandler = async () => {
+  //   const fetchsendEmail = await fetch(
+  //     `http://api.createsend.com/api/v3.3/transactional/classicEmail/send?clientID=fc0cb0bd83aa54599f3f1e0080d2f9c3`,
+  //     {
+  //       method: 'POST',
+  //       body: JSON.stringify({
+  //         Subject: 'Password reset request for ABC Widgets',
+  //         From: `John Smith <${email}>`,
+  //         ReplyTo: email,
+
+  //         To: ['Joe Smith <joesmith@example.com>', 'jamesmith@example.com'],
+  //         CC: ['Joe Smith <joesmith@example.com>'],
+  //         Text: 'plain text content goes here',
+  //       }),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     }
+  //   );
+  //   const sendEmailRes = await fetchsendEmail.json();
+  //   console.log(sendEmailRes);
+  // };
   const checkCheckboxes = () => {
     const findCheckedBoxes = [...document.querySelectorAll(`input:checked`)];
     if (findCheckedBoxes.length < 2) {
@@ -29,9 +52,9 @@ const CheckYourAnswers = () => {
         payload: { page: 'SUCCESS', stepNum },
       });
       setErrorMsg('');
+      // sendEmailHandler();
     }
   };
-
   return (
     <>
       <div className="wmnds-col-1 wmnds-m-b-md">

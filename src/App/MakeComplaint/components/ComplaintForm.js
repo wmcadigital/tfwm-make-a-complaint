@@ -57,7 +57,7 @@ const ComplaintForm = () => {
         });
       }
     });
-    console.log(answers);
+
     const hasEmptyField = answers.some((target) => !target.value);
     const isRequired = answers.some((target) => target.required === 'required');
     // exit func if there is a field with an empty value or if there are no answers
