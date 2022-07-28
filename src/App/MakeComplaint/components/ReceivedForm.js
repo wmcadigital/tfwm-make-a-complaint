@@ -16,12 +16,13 @@ const ReceivedForm = ({
   return (
     <div style={{ maxWidth: 608 }}>
       <div className="wmnds-msg-summary wmnds-msg-summary--success-fill ">
-        <h3 className=" wmnds-text-align-center">{successTitle}</h3>
+        <h3 className="wmnds-text-align-center">{successTitle}</h3>
         <div
-          className="wmnds-text-align-center wmnds-m-t-lg"
+          className="wmnds-text-align-center wmnds-m-t-lg wmnds-white bg-white"
           dangerouslySetInnerHTML={{
             __html: sanitize(successText),
           }}
+          style={{ color: 'white' }}
         />
       </div>
       <h2 className="wmnds-m-t-lg">{title}</h2>

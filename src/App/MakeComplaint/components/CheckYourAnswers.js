@@ -87,7 +87,7 @@ const CheckYourAnswers = () => {
             {formData['what-happend'] && (
               <tr>
                 <th scope="row" data-header="Header 1">
-                  Deatils
+                  Details
                 </th>
                 <td data-header="Header 2">{formData['what-happend']}</td>
                 <td data-header="Header 2">

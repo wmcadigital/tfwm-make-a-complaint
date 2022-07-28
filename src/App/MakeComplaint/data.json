@@ -13,7 +13,7 @@
           "errorMsg": "Reason is required",
           "required": true,
           "options": [
-            "Antisocial behavuior",
+            "Antisocial behaviour",
             "Service delay or cancellation",
             "Cleanliness",
             "Bus did not operate",
@@ -35,7 +35,7 @@
           "components": [
             {
               "type": "Textarea",
-              "title": "What Happend?",
+              "title": "What Happened?",
               "errorMsg": "Incident details are required",
               "required": true,
 
@@ -47,7 +47,7 @@
           ]
         },
         {
-          "type": "Antisocial behavuior",
+          "type": "Antisocial behaviour",
           "components": [
             {
               "type": "InsetText",
@@ -78,7 +78,7 @@
             },
             {
               "type": "Textarea",
-              "title": "What Happend?",
+              "title": "What Happened?",
               "errorMsg": "Incident details are required",
               "text1": "Please describe the incident in detail.",
               "text2": "You'll get the chance to enter the location and date after.",
@@ -103,7 +103,7 @@
         },
         {
           "type": "Text",
-          "text": "If it happened at bust stop, please enter the bus stop name.",
+          "text": "If it happened at bus stop, please enter the bus stop name.",
           "id": "2"
         },
         {
