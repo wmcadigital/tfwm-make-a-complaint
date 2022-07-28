@@ -13,6 +13,7 @@ export const FormProvider = (props) => {
     page: 'COMPLAINT',
     stepNum: 0,
     formData: {},
+    pageType: '',
     route: defaultRoute,
   };
   const ComplaintReducer = (state, action) => {
@@ -22,6 +23,7 @@ export const FormProvider = (props) => {
           ...state,
           page: action.payload.page,
           stepNum: action.payload.stepNum,
+          pageType: action.payload.pageType,
         };
       }
       case 'ADD-DATA': {

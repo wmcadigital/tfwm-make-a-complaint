@@ -1,28 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
-
 import Dropdown from 'components/shared/Dropdown';
-
 import InsetText from 'components/shared/InsetText';
-
 import Textarea from 'components/shared/Textarea';
-
 import Calendar from 'components/shared/Calendar';
-
 import Checkbox from 'components/shared/Checkbox';
-
 import Input from 'components/shared/Input';
-
 import Button from 'components/shared/Button';
-
 import { defaultRoute, ticketsAndPassesRoute } from 'App/routes';
-
 import { FormDataContext } from '../../globalState';
-
 import Data from '../data.json';
 
 const ComplaintForm = () => {
-  const [{ stepNum, route, formData }, formDispatch] = useContext(FormDataContext);
-
+  const [{ stepNum, route, formData, pageType }, formDispatch] = useContext(FormDataContext);
   const [dynamicComponents, setDynamicComponents] = useState({ type: '', components: [] });
   const activeRoute = route[stepNum];
 
@@ -63,8 +52,8 @@ const ComplaintForm = () => {
     // exit func if there is a field with an empty value or if there are no answers
     if ((hasEmptyField && isRequired) || answers.length === 0) return;
 
-    // when last complaint form is reached
-    if (stepNum === route.length - 1) {
+    // when last complaint form is reached or if the user clicked the change link
+    if (stepNum === route.length - 1 || pageType === 'change') {
       formDispatch({
         type: 'CHANGE-PAGE',
         payload: { page: 'ANSWERS', stepNum },
@@ -97,7 +86,13 @@ const ComplaintForm = () => {
       type: 'PREV',
     });
   };
-
+  useEffect(() => {
+    const buttonFocusEl = document.getElementById('btn-focus');
+    if (buttonFocusEl) {
+      buttonFocusEl.focus();
+      buttonFocusEl.blur();
+    }
+  }, [stepNum]);
   return (
     <>
       <div className="wmnds-col-1 wmnds-m-b-md">
@@ -110,6 +105,7 @@ const ComplaintForm = () => {
         <h4 className="wmnds-m-t-xs">{data.sectionDescription}</h4>
 
         <h2 className=" wmnds-m-t-lg">{data.title}</h2>
+        <button type="button" style={{ opacity: '0', all: 'unset' }} id="btn-focus" tabIndex="-1" />
         <form onSubmit={nextStep}>
           {data.components.map((component) => (
             <div key={component.id}>

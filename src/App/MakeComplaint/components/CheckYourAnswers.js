@@ -10,13 +10,13 @@ const CheckYourAnswers = () => {
   const prevStep = () => {
     formDispatch({
       type: 'CHANGE-PAGE',
-      payload: { page: 'COMPLAINT', stepNum },
+      payload: { page: 'COMPLAINT', stepNum, pageType: '' },
     });
   };
   const changeForm = (stepNumber) => {
     formDispatch({
       type: 'CHANGE-PAGE',
-      payload: { page: 'COMPLAINT', stepNum: stepNumber },
+      payload: { page: 'COMPLAINT', stepNum: stepNumber, pageType: 'change' },
     });
   };
   // const email = 'devtest13213@gmail.com';
